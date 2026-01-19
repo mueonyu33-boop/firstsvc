@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>구글 계정 검색</title>
+
+  <!-- CSS는 다음 단계에서 styles.css로 연결할게 -->
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+
+<body>
+  <div class="app">
+    <!-- 헤더 -->
+    <header class="header">
+      <h1 class="title">구글 계정 검색</h1>
+      <p class="subtitle">
+        이름을 입력하고 검색하면 해당 계정 정보를 확인할 수 있습니다.
+      </p>
+    </header>
+
+    <!-- 검색 패널 -->
+    <main class="panel" aria-label="검색 영역">
+      <form id="searchForm" class="searchForm" autocomplete="off">
+        <label class="field">
+          <span class="label">이름</span>
+          <input
+            id="nameInput"
+            name="name"
+            type="search"
+            placeholder="예) 홍길동"
+            required
+          />
+        </label>
+
+        <button id="searchBtn" class="btn primary" type="submit">
+          검색
+        </button>
+      </form>
+
+      <div class="hint">
+        Enter 키로도 검색됩니다.
+      </div>
+
+      <!-- 상태 메시지(로딩/오류/안내) -->
+      <div id="status" class="status" role="status" aria-live="polite"></div>
+
+      <!-- 결과 영역 -->
+      <section id="result" class="result" aria-label="검색 결과" hidden>
+        <div class="resultHeader">
+          <h2 class="resultTitle">검색 결과</h2>
+          <div class="resultActions">
+            <button id="copyIdBtn" class="btn ghost" type="button" disabled>
+              ID 복사
+            </button>
+            <button id="copyPwBtn" class="btn ghost" type="button" disabled>
+              PW 복사
+            </button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="row">
+            <div class="key">이름</div>
+            <div class="val" id="outName">-</div>
+          </div>
+
+          <div class="row">
+            <div class="key">구글 ID</div>
+            <div class="val mono" id="outId">-</div>
+          </div>
+
+          <div class="row">
+            <div class="key">PW</div>
+            <div class="val mono">
+              <!-- 기본은 마스킹 상태 -->
+              <span id="outPwMasked">••••••••</span>
+              <span id="outPw" hidden>-</span>
+
+              <button id="togglePwBtn" class="btn mini" type="button" disabled>
+                보기
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <p class="securityNote">
+          ⚠️ 비밀번호는 민감 정보입니다. 화면 공유/촬영에 주의하세요.
+        </p>
+      </section>
+    </main>
+
+    <!-- 푸터 -->
+    <footer class="footer">
+      <small>
+        ※ 운영 시 비밀번호 평문 저장/표시는 지양하고, 초기화/재설정 방식 권장
+      </small>
+    </footer>
+  </div>
+
+  <!-- 비밀번호 보기 전 확인 모달(다음 단계 JS에서 제어) -->
+  <div id="pwModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="pwModalTitle" hidden>
+    <div class="modalBackdrop" data-close="true"></div>
+
+    <div class="modalBox">
+      <h3 id="pwModalTitle" class="modalTitle">비밀번호를 표시할까요?</h3>
+      <p class="modalDesc">
+        주변 사람이 볼 수 있습니다. 정말 표시하시겠습니까?
+      </p>
+
+      <div class="modalActions">
+        <button id="pwModalCancel" class="btn ghost" type="button">취소</button>
+        <button id="pwModalOk" class="btn primary" type="button">표시</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JS는 다음 단계에서 app.js로 연결 -->
+  <script src="./app.js"></script>
+</body>
+</html>
